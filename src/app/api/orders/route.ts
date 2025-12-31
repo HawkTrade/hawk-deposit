@@ -42,7 +42,9 @@ export async function POST(request: NextRequest) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(`Crossmint API error: ${data.error || "Unknown error"}`);
+      throw new Error(
+        `Crossmint API error: ${data.message || "Unknown error"}`
+      );
     }
 
     return NextResponse.json(data, { status: 200 });

@@ -20,8 +20,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log(orderData);
-
   const handleSubmit = async () => {
     setError(null);
     setLoading(true);

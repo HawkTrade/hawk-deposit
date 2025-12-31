@@ -50,6 +50,9 @@ importers:
       react-dom:
         specifier: ^19
         version: 19.2.0(react@19.2.0)
+      sonner:
+        specifier: ^2.0.7
+        version: 2.0.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -5944,6 +5947,12 @@ packages:
   sonic-boom@2.8.0:
     resolution: {integrity: sha512-kuonw1YOYYNOve5iHdSahXPOK49GqwA+LZhI6Wz/l0rP57iKyXXIHaRagOBHAPmGwJC6od2Z9zgvZ5loSgMlVg==}
 
+  sonner@2.0.7:
+    resolution: {integrity: sha512-W6ZN4p58k8aDKA4XPcx2hpIQXBRAgyiWVkYhT7CvK6D3iAu7xjvVyhQHg2/iaKJZ1XVJ4r7XuwGL+WGEK37i9w==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
@@ -7662,7 +7671,7 @@ snapshots:
       clsx: 1.2.1
       eventemitter3: 5.0.1
       preact: 10.28.0
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -7761,7 +7770,7 @@ snapshots:
       react-dom: 19.2.0(react@19.2.0)
       react-jss: 10.10.0(react@19.2.0)
       react-transition-group: 4.4.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
       zod: 3.22.4
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -7824,7 +7833,7 @@ snapshots:
       '@solana/web3.js': 1.98.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
       bs58: 5.0.0
       tweetnacl: 1.0.3
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -7845,7 +7854,7 @@ snapshots:
       bs58: 5.0.0
       ox: 0.6.9(typescript@5.9.3)(zod@3.22.4)
       tweetnacl: 1.0.3
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - '@datadog/browser-rum'
       - bufferutil
@@ -7917,7 +7926,7 @@ snapshots:
       '@turnkey/iframe-stamper': 2.0.0
       '@turnkey/viem': 0.6.2(@babel/core@7.28.5)(@babel/preset-env@7.28.5(@babel/core@7.28.5))(@types/react@19.2.7)(bufferutil@4.0.9)(react@19.2.0)(utf-8-validate@5.0.10)(viem@2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4))
       '@turnkey/webauthn-stamper': 0.5.0
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/preset-env'
@@ -7990,7 +7999,7 @@ snapshots:
       '@dynamic-labs/utils': 4.28.0
       '@dynamic-labs/wallet-book': 4.28.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@dynamic-labs/wallet-connector-core': 4.28.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - react
       - react-dom
@@ -8012,7 +8021,7 @@ snapshots:
       '@walletconnect/ethereum-provider': 2.21.5(@types/react@19.2.7)(bufferutil@4.0.9)(react@19.2.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
       buffer: 6.0.3
       eventemitter3: 5.0.1
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -8274,7 +8283,7 @@ snapshots:
       '@dynamic-labs/utils': 4.28.0
       '@dynamic-labs/waas': 4.28.0(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(viem@2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4))
       '@dynamic-labs/wallet-connector-core': 4.28.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - '@gql.tada/svelte-support'
       - '@gql.tada/vue-support'
@@ -8629,7 +8638,7 @@ snapshots:
       ethers: 6.16.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       neverthrow: 6.2.2
       siwe: 2.3.2(ethers@6.16.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
 
   '@farcaster/auth-kit@0.6.0(@types/react@19.2.7)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(utf-8-validate@5.0.10)(viem@2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4))':
     dependencies:
@@ -9708,7 +9717,7 @@ snapshots:
     dependencies:
       big.js: 6.2.2
       dayjs: 1.11.13
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -9721,7 +9730,7 @@ snapshots:
       '@reown/appkit-wallet': 1.7.8(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
       '@walletconnect/universal-provider': 2.21.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
       valtio: 1.13.2(@types/react@19.2.7)(react@19.2.0)
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -9871,7 +9880,7 @@ snapshots:
       '@walletconnect/logger': 2.1.2
       '@walletconnect/universal-provider': 2.21.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
       valtio: 1.13.2(@types/react@19.2.7)(react@19.2.0)
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -9925,7 +9934,7 @@ snapshots:
       '@walletconnect/universal-provider': 2.21.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
       bs58: 6.0.0
       valtio: 1.13.2(@types/react@19.2.7)(react@19.2.0)
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10551,7 +10560,7 @@ snapshots:
       '@turnkey/sdk-server': 1.5.0
       cross-fetch: 4.1.0
       typescript: 5.9.3
-      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
+      viem: 2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/preset-env'
@@ -15093,6 +15102,11 @@ snapshots:
     dependencies:
       atomic-sleep: 1.0.0
 
+  sonner@2.0.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+    dependencies:
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+
   source-map-js@1.2.0: {}
 
   source-map-js@1.2.1: {}
@@ -15642,7 +15656,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  viem@2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4):
+  viem@2.33.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.13):
     dependencies:
       '@noble/curves': 1.9.2
       '@noble/hashes': 1.8.0

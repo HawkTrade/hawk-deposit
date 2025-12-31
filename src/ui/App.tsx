@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, Info } from "@/components/icons/LucideReact";
@@ -5,6 +6,8 @@ import { AppleIcon } from "@/components/icons/AppleIcon";
 import { Keypad } from "@/components/Keypad";
 import { BackgroundAnimation } from "@/components/BackgroundAnimation";
 import { cn } from "@/lib/utils";
+import useCreateOrder from "@/hooks/useCreateOrder";
+import { PNButton } from "@/components/ui/button";
 
 // Mock data
 const USDC_PRICE = 1.0;
@@ -18,10 +21,14 @@ const CURRENCY_CONFIG = {
   CNY: { symbol: "¥", rate: 0.14, label: "CNY" }, // 1 CNY = 0.14 USD
 };
 
-export default function CheckoutWithHawk() {
-  const [amount, setAmount] = useState<string>("");
+interface Props {
+  setOrderData: Dispatch<SetStateAction<CreateOrderResponse | null>>;
+}
+
+export default function CheckoutWithHawk({ setOrderData }: Props) {
   const [currency, setCurrency] = useState<Currency>("USD");
   const [showDetails, setShowDetails] = useState(false);
+  const [amount, setAmount] = useState<string>("");
 
   const handleKeyPress = (key: string) => {
     if (key === "." && amount.includes(".")) return;
@@ -43,6 +50,12 @@ export default function CheckoutWithHawk() {
   const handlePresetClick = (val: number) => {
     setAmount(val.toString());
   };
+
+  const { createOrder, loading } = useCreateOrder();
+  async function handleSubmit() {
+    const orderData = await createOrder(amount);
+    setOrderData(orderData);
+  }
 
   const parsedAmount = parseFloat(amount) || 0;
   const isValidAmount = parsedAmount > 0;
@@ -85,6 +98,7 @@ export default function CheckoutWithHawk() {
                     ? "bg-zinc-800 text-white shadow-sm"
                     : "text-zinc-500 hover:text-zinc-300"
                 )}
+                disabled={loading}
               >
                 {c === "CNY" ? "元" : c}
               </button>
@@ -127,6 +141,7 @@ export default function CheckoutWithHawk() {
             <button
               key={val}
               onClick={() => handlePresetClick(val)}
+              disabled={loading}
               className="py-2 px-4 rounded-full border border-zinc-800 bg-zinc-950 text-zinc-400 text-sm font-medium hover:border-zinc-700 hover:text-white transition-all active:scale-95"
             >
               {currentSymbol}
@@ -184,7 +199,7 @@ export default function CheckoutWithHawk() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-zinc-500">To</span>
-                    <span className="text-zinc-300">0x9baa...159d</span>
+                    <span className="text-zinc-300">0xdb9b...fd70</span>
                   </div>
 
                   <div className="pt-2 mt-2">
@@ -206,32 +221,35 @@ export default function CheckoutWithHawk() {
 
         {/* Keypad */}
         <div className="pb-6">
-          <Keypad onKeyPress={handleKeyPress} onDelete={handleDelete} />
+          <Keypad
+            onKeyPress={handleKeyPress}
+            onDelete={handleDelete}
+            disabled={loading}
+          />
         </div>
 
         {/* Action Button */}
         <div className="mt-auto pt-2">
-          <button
-            disabled={!isValidAmount}
+          <PNButton
+            disabled={!isValidAmount || loading}
+            loading={loading}
+            prefixIcon={<AppleIcon className="h-4 mb-0.5" />}
             className={cn(
-              "w-full h-14 rounded-2xl flex items-center justify-center gap-2 font-medium text-[17px] transition-all active:scale-[0.98] shadow-lg shadow-zinc-900/20",
               isValidAmount
                 ? "bg-white text-black hover:bg-zinc-100"
                 : "bg-zinc-900 text-zinc-600 cursor-not-allowed"
             )}
+            onClick={handleSubmit}
           >
             {isValidAmount ? (
-              <>
-                <AppleIcon className="h-4 mb-0.5" />
-                <span>
-                  Pay {currentSymbol}
-                  {amount}
-                </span>
-              </>
+              <span>
+                Pay {currentSymbol}
+                {amount}
+              </span>
             ) : (
               "Enter Amount"
             )}
-          </button>
+          </PNButton>
 
           <p className="mt-4 text-center text-[10px] text-zinc-700">
             Powered by{" "}
