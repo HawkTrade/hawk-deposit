@@ -4,8 +4,9 @@ const CROSSMINT_SERVER_KEY = process.env.CROSSMINT_SERVER_KEY;
 
 export async function GET(
   _req: Request,
-  { params }: { params: { orderId: string } }
+  { params }: { params: Promise<{ orderId: string }> }
 ) {
+  const { orderId } = await params;
   try {
     if (!CROSSMINT_SERVER_KEY) {
       return NextResponse.json(
@@ -16,7 +17,6 @@ export async function GET(
       );
     }
 
-    const { orderId } = params;
     const response = await fetch(
       `https://staging.crossmint.com/api/2022-06-09/orders/${orderId}`,
       {

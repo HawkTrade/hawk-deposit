@@ -4,7 +4,10 @@ import { useState } from "react";
 import { Page } from "@/components/Page";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import OnrampCheckout from "@/ui/onramp";
+
+import dynamic from "next/dynamic";
+const OnrampCheckout = dynamic(() => import("@/ui/onramp"), { ssr: false });
+
 import {
   validateEmail,
   validateEthereumAddress,

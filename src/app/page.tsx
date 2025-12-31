@@ -2,8 +2,9 @@
 
 import { Page } from "@/components/Page";
 import CheckoutWithHawk from "@/ui/App";
-import OnrampCheckout from "@/ui/onramp";
 import { useState } from "react";
+import dynamic from "next/dynamic";
+const OnrampCheckout = dynamic(() => import("@/ui/onramp"), { ssr: false });
 
 export default function Home() {
   const [orderData, setOrderData] = useState<CreateOrderResponse | null>(null);
