@@ -1,13 +1,27 @@
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronDown, Info } from "@/components/icons/LucideReact";
+import { ChevronDown, Info, CreditCard } from "@/components/icons/LucideReact";
 import { AppleIcon } from "@/components/icons/AppleIcon";
 import { Keypad } from "@/components/Keypad";
 import { BackgroundAnimation } from "@/components/BackgroundAnimation";
 import { cn } from "@/lib/utils";
 import useCreateOrder from "@/hooks/useCreateOrder";
 import { PNButton } from "@/components/ui/button";
+import { GoogleIcon } from "@/components/icons/GoogleIcon";
+
+const getDeviceType = (): "apple" | "android" | "other" => {
+  if (typeof window === "undefined") return "other";
+  const platform = (window as any).Telegram?.WebApp?.platform;
+  if (platform === "ios") return "apple";
+  if (platform === "android") return "android";
+  // Fallback to user agent
+  const ua = navigator.userAgent;
+  if (ua.includes("iPhone") || ua.includes("iPad") || ua.includes("iPod"))
+    return "apple";
+  if (ua.includes("Android")) return "android";
+  return "other";
+};
 
 // Mock data
 const USDC_PRICE = 1.0;
@@ -21,6 +35,23 @@ const CURRENCY_CONFIG = {
   CNY: { symbol: "¥", rate: 0.14, label: "CNY" }, // 1 CNY = 0.14 USD
 };
 
+type PaymentOption = {
+  name: string;
+  icon: React.ComponentType<{ className?: string }> | null;
+};
+
+const PAYMENT_OPTIONS: Record<string, PaymentOption[]> = {
+  apple: [
+    { name: "Apple Pay", icon: AppleIcon },
+    { name: "Card", icon: CreditCard },
+  ],
+  android: [
+    { name: "Google Pay", icon: GoogleIcon },
+    { name: "Card", icon: CreditCard },
+  ],
+  other: [{ name: "Card", icon: CreditCard }],
+};
+
 interface Props {
   setOrderData: Dispatch<SetStateAction<CreateOrderResponse | null>>;
 }
@@ -29,6 +60,9 @@ export default function CheckoutWithHawk({ setOrderData }: Props) {
   const [currency, setCurrency] = useState<Currency>("USD");
   const [showDetails, setShowDetails] = useState(false);
   const [amount, setAmount] = useState<string>("");
+
+  const deviceType = getDeviceType();
+  const paymentOptions = PAYMENT_OPTIONS[deviceType];
 
   const handleKeyPress = (key: string) => {
     if (key === "." && amount.includes(".")) return;
@@ -68,17 +102,14 @@ export default function CheckoutWithHawk({ setOrderData }: Props) {
 
   return (
     <div className="min-h-screen bg-black text-white flex justify-center items-start font-sans selection:bg-zinc-800 overflow-hidden relative">
-      {/* Background Aesthetic - Restricted to Hero */}
       <div className="absolute top-0 left-0 right-0 h-[55vh] pointer-events-none overflow-hidden">
         <BackgroundAnimation />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black" />
 
-        {/* Top Glow Only */}
         <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-zinc-800/20 blur-[120px] rounded-full mix-blend-screen opacity-30" />
       </div>
 
       <div className="w-full max-w-md min-h-screen flex flex-col relative px-6 pt-8 pb-6 z-10">
-        {/* Header - Minimalist */}
         <header className="flex justify-between items-center mb-10">
           <div className="flex items-center gap-2">
             <img
@@ -106,7 +137,6 @@ export default function CheckoutWithHawk({ setOrderData }: Props) {
           </div>
         </header>
 
-        {/* Main Display - Clean & Large */}
         <div className="flex-1 flex flex-col items-center justify-center min-h-[180px]">
           <div className="text-center space-y-2">
             <p className="text-zinc-500 text-sm font-medium tracking-wide uppercase">
@@ -120,7 +150,7 @@ export default function CheckoutWithHawk({ setOrderData }: Props) {
                 className={cn(
                   "text-6xl md:text-7xl font-normal tracking-tight",
                   amount
-                    ? "bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent"
+                    ? "bg-linear-to-b from-white to-zinc-400 bg-clip-text text-transparent"
                     : "text-zinc-700"
                 )}
               >
@@ -135,7 +165,6 @@ export default function CheckoutWithHawk({ setOrderData }: Props) {
           </div>
         </div>
 
-        {/* Preset Amounts - Subtle Pills */}
         <div className="flex justify-center gap-3 mb-10">
           {PRESET_AMOUNTS.map((val) => (
             <button
@@ -150,7 +179,6 @@ export default function CheckoutWithHawk({ setOrderData }: Props) {
           ))}
         </div>
 
-        {/* Details Section - Minimal Collapsible */}
         <div className="mb-6 border border-zinc-900 rounded-3xl overflow-hidden bg-zinc-900/10">
           <button
             className="w-full flex justify-between items-center px-5 py-3.5 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 transition-colors group"
@@ -206,11 +234,20 @@ export default function CheckoutWithHawk({ setOrderData }: Props) {
                     <p className="text-[10px] text-zinc-600 uppercase tracking-wider mb-2">
                       Payment Method
                     </p>
-                    <div className="w-full">
-                      <button className="w-full flex items-center justify-center p-3 rounded-xl border border-zinc-700 bg-zinc-900 text-white gap-2 cursor-default">
-                        <AppleIcon className="h-4 w-auto" />
-                        <span className="text-xs font-medium">Apple Pay</span>
-                      </button>
+                    <div className="space-y-2">
+                      {paymentOptions.map((option) => (
+                        <button
+                          key={option.name}
+                          className="w-full flex items-center justify-center p-3 rounded-xl border border-zinc-700 bg-zinc-900 text-white gap-2 cursor-default"
+                        >
+                          {option.icon && (
+                            <option.icon className="h-4 w-auto" />
+                          )}
+                          <span className="text-xs font-medium">
+                            {option.name}
+                          </span>
+                        </button>
+                      ))}
                     </div>
                   </div>
                 </div>
