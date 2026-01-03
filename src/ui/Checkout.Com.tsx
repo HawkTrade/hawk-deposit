@@ -57,20 +57,16 @@ export function CheckoutComEmbedded({ amount }: { amount: string }) {
             toast.info("Flow is ready");
             setIsCheckoutReady(true);
           },
-          onPaymentCompleted: (component: unknown, paymentResponse: object) => {
+          onPaymentCompleted: (_: unknown, paymentResponse: object) => {
             toast.success("Payment completed successfully");
-            console.log(component, paymentResponse);
             console.log("Payment completed with ID:", "id" in paymentResponse && paymentResponse.id);
           },
-          onChange: (component: object) => {
-            toast.info("Component changed");
-            console.log("Component changed:", component);
-            console.log(`Component ${(component as any).type} validity changed:`, (component as any).isValid());
+          onChange: (_: unknown) => {
+            console.log("Payment component changed");
           },
-          onError: (component: unknown, error: unknown) => {
+          onError: (_: unknown, error: unknown) => {
             toast.error("Payment error occurred");
-            console.error(component, error);
-            console.error("Payment error:", error, "Component:", (component as any).type);
+            console.error("Payment error:", error);
           },
         });
 

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-export default function useCreateOrder() {
+export default function useCreateOnrampOrder() {
   const [loading, setLoading] = useState(false);
 
   async function createOrder(amount: string) {
     setLoading(true);
     try {
-      const response = await fetch("/api/orders", {
+      const response = await fetch("/api/onramp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,9 +21,7 @@ export default function useCreateOrder() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(
-          errorData.details || errorData.data || "Failed to create order"
-        );
+        throw new Error(errorData.details || errorData.data || "Failed to create order");
       }
 
       const data: CreateOrderResponse = await response.json();
