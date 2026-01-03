@@ -4,10 +4,12 @@ import Image from "next/image";
 import { Spinner } from "@/components/ui/spinner";
 import useCreateMemeOrder from "@/hooks/useCreateMemeOrder";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function CheckoutComEmbedded({ amount }: { amount: string }) {
   const { createOrder, data, loading } = useCreateMemeOrder();
   const [isCheckoutReady, setIsCheckoutReady] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function initiateOrder() {
@@ -60,6 +62,7 @@ export function CheckoutComEmbedded({ amount }: { amount: string }) {
           onPaymentCompleted: (_: unknown, paymentResponse: object) => {
             toast.success("Payment completed successfully");
             console.log("Payment completed with ID:", "id" in paymentResponse && paymentResponse.id);
+            router.refresh();
           },
           onChange: (_: unknown) => {
             console.log("Payment component changed");
@@ -77,6 +80,9 @@ export function CheckoutComEmbedded({ amount }: { amount: string }) {
         }
       } catch (error) {
         console.error("Error initializing checkout:", error);
+        toast.error("Failed to initialize payment flow", {
+          description: error instanceof Error ? error.message : String(error),
+        });
       }
     };
 
