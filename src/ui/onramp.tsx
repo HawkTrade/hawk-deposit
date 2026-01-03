@@ -6,6 +6,8 @@ import {
   useCrossmintCheckout,
   CrossmintCheckoutProvider,
 } from "@crossmint/client-sdk-react-ui";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 interface Props {
   orderId: string;
@@ -15,11 +17,7 @@ interface Props {
 
 const clientApiKey = process.env.NEXT_PUBLIC_CROSSMINT_CLIENT_KEY!;
 
-export default function OnrampCheckout({
-  orderId,
-  clientSecret,
-  receiptEmail,
-}: Props) {
+export default function OnrampCheckout({ orderId, clientSecret, receiptEmail }: Props) {
   return (
     <main className="py-5 px-3">
       <CrossmintProvider apiKey={clientApiKey}>
@@ -46,18 +44,31 @@ export default function OnrampCheckout({
 function CheckoutStatus() {
   const { order } = useCrossmintCheckout();
 
-  if (!order) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    let id: string | number;
+    switch (order?.phase) {
+      case "completed":
+        id = toast.success("Purchase complete!");
+        break;
+      case "delivery":
+        id = toast.loading("Delivering your Tokens...");
+        break;
+      case "payment":
+        id = toast.loading("Processing payment...");
+        break;
+      case "quote":
+        id = toast.loading("Preparing your order...");
+        break;
+      default:
+        break;
+    }
 
-  switch (order.phase) {
-    case "completed":
-      return <div>Purchase complete!</div>;
-    case "delivery":
-      return <div>Delivering your Tokens...</div>;
-    case "payment":
-      return <div>Processing payment...</div>;
-    case "quote":
-      return <div>Preparing your order...</div>;
-  }
+    return () => {
+      if (id !== undefined) {
+        toast.dismiss(id);
+      }
+    };
+  }, [order?.phase]);
+
+  return <></>;
 }
